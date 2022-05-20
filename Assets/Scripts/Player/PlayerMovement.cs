@@ -7,12 +7,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float positionLimit = 3.5f;
     [SerializeField] bool useConstantForward = true;
 
+    Rigidbody rb;
+    PlayerAnimationController anim;
+
     private bool isMovementEnabled = true; //TODO remove true
     private bool isInputPressed;
+    private bool isHit;
 
     private Vector2 direction;
+    private float minVer = 0;
+    private float maxVer => forwardSpeed * Time.deltaTime;
 
-    private void Update()
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<PlayerAnimationController>();
+    }
+
+    private void FixedUpdate()
     {
         if (CanMove())
             Move();
@@ -36,10 +48,28 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         var hor = direction.x * horizontalSpeed;
-        var ver = useConstantForward? forwardSpeed * Time.deltaTime : direction.y * forwardSpeed * Time.deltaTime;
+        var ver = useConstantForward? maxVer : direction.y * forwardSpeed * Time.deltaTime;
         var newPos = transform.position + new Vector3(hor, 0f, ver);
         newPos.x = Mathf.Clamp(newPos.x, -positionLimit, positionLimit);
-        transform.position = newPos;
+        rb.MovePosition(newPos);
+        anim.PlayMoveAnim(CalculateMoveAnimationValue(ver));
+    }
+
+    private float CalculateMoveAnimationValue(float ver)
+    {
+        return Mathf.InverseLerp(minVer, maxVer, ver);
+    }
+
+    public void ApplyHitMotion()
+    {
+        DisableMovement();
+        anim.PlayHitAnim();
+    }
+
+    public void StopHitMotion()
+    {
+        anim.StopHitAnim();
+        EnableMovement();
     }
 
     private void OnPressed()
@@ -51,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isInputPressed = false;
         direction = Vector2.zero;
+        if (!CanMove()) anim.StopMoveAnim();
     }
 
     private void OnDrag(Vector2 dir)
