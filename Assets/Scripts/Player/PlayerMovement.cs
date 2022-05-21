@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMovementEnabled;
     private bool isInputPressed;
-    private bool isHit;
 
     private Vector2 direction;
     private float minVer = 0;
@@ -38,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public void DisableMovement()
     {
         isMovementEnabled = false;
+        anim.StopMoveAnim();
     }
 
     private bool CanMove()

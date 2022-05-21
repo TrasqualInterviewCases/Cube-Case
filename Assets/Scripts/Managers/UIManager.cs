@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Game Panel Fields")]
     [SerializeField] GameObject gamePanel;
-    [SerializeField] TMP_Text goldText;
+    [SerializeField] TMP_Text collectableText;
 
     [Space(5)]
     [SerializeField] GameObject winPanel;
@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
 
     public void SetGoldText()
     {
-        goldText.SetText(0.ToString());
+        collectableText.SetText(0.ToString());
     }
 
     private void OnGameStartCallback()
