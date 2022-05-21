@@ -11,6 +11,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject gamePanel;
     [SerializeField] TMP_Text goldText;
 
+    [Space(5)]
+    [SerializeField] GameObject winPanel;
+
+    [Space(5)]
+    [SerializeField] GameObject losePanel;
+
     private void Start()
     {
         SetLevelText();
@@ -32,13 +38,29 @@ public class UIManager : MonoBehaviour
         gamePanel.SetActive(true);
     }
 
+    private void OnLoseCallback()
+    {
+        gamePanel.SetActive(false);
+        losePanel.SetActive(true);
+    }
+
+    private  void OnWinCallback()
+    {
+        gamePanel.SetActive(false);
+        winPanel.SetActive(true);
+    }
+
     private void OnEnable()
     {
         GameManager.OnStart += OnGameStartCallback;
+        GameManager.OnWin += OnWinCallback;
+        GameManager.OnLose += OnLoseCallback;
     }
 
     private void OnDisable()
     {
         GameManager.OnStart -= OnGameStartCallback;
+        GameManager.OnWin -= OnWinCallback;
+        GameManager.OnLose -= OnLoseCallback;
     }
 }

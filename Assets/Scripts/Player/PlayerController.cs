@@ -42,4 +42,24 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(obstacleHitCo);
         }
     }
+
+    public void Finish()
+    {
+        StartCoroutine(FinishCo());
+    }
+
+    private IEnumerator FinishCo()
+    {
+        yield return new WaitForSeconds(1.5f);
+        movement.DisableMovement();
+        while(transform.eulerAngles.y <= 180f)
+        {
+            var angles = transform.eulerAngles;
+            angles.y += Time.deltaTime * 30f;
+            transform.eulerAngles = angles;
+
+            var targetRot = Quaternion.AngleAxis(180, transform.up);
+        }
+        //Change Camera
+    }
 }

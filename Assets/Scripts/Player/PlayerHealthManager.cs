@@ -35,5 +35,6 @@ public class PlayerHealthManager : MonoBehaviour
     private void Die()
     {
         OnPlayerDeath?.Invoke();
+        GameManager.Instance.LoseGame();
     }
 }
