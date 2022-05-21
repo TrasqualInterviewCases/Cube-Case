@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     [Header("Start Panel Fields")]
     [SerializeField] GameObject startPanel;
     [SerializeField] TMP_Text levelText;
+    [SerializeField] TMP_Text totalGemText;
+    [SerializeField] GameObject shopPanel;
 
     [Header("Game Panel Fields")]
     [SerializeField] GameObject gamePanel;
@@ -27,13 +29,24 @@ public class UIManager : MonoBehaviour
         levelText.SetText($"Level {1}");
     }
 
-    public void SetGoldText()
+    public void PlayCoinCollectionAnim(int amount)
     {
-        collectableText.SetText(0.ToString());
+        SetCollectedGemText(amount);
+    }
+
+    public void SetCollectedGemText(int amount)
+    {
+        collectableText.SetText(amount.ToString());
+    }
+
+    public void SetTotalGemText(int amount)
+    {
+        totalGemText.SetText(amount.ToString());
     }
 
     private void OnGameStartCallback()
     {
+        shopPanel.SetActive(false);
         startPanel.SetActive(false);
         gamePanel.SetActive(true);
     }

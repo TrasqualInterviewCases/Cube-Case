@@ -8,11 +8,10 @@ public class Singleton<T> : MonoBehaviour where T : Component
     {
         get
         {
-            if(instance != null)
+            if(instance == null)
             {
-                Destroy(instance.gameObject);
-            }
-            instance = FindObjectOfType<T>();
+                instance = FindObjectOfType<T>();
+            }            
             return instance;
         }
     }
