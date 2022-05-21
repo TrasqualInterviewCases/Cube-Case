@@ -6,18 +6,42 @@ public class PlayerHealthManager : MonoBehaviour
     public static Action OnPlayerDeath;
 
     [SerializeField] int baseHealth = 3;
+    [SerializeField] Transform healthPanel;
+    [SerializeField] GameObject healthPrefab;
 
     private int currentHealth;
 
     private void Start()
     {
-        currentHealth = baseHealth = PlayerPrefs.GetInt("playerHealth", 3);
+        UpdateCurrentHealth();
+        UpdatePlayerHealthPanel();
     }
 
-    public void IncreaseHealth(int amount)
+    private void UpdatePlayerHealthPanel()
     {
-        baseHealth += amount;
-        PlayerPrefs.SetInt("playerHealth", baseHealth);
+        var dif = currentHealth - healthPanel.childCount;
+
+        if (dif > 0)
+        {
+            for (int i = 0; i < dif; i++)
+            {
+                Instantiate(healthPrefab, healthPanel);
+            }
+        }
+        else
+        {
+            dif = Mathf.Abs(dif);
+            for (int i = 0; i < dif; i++)
+            {
+                Destroy(healthPanel.GetChild(0).gameObject);
+            }
+        }
+    }
+
+    public void UpdateCurrentHealth()
+    {
+        currentHealth = baseHealth + PlayerPrefs.GetInt("healthUpgradeLevel", 0);
+        UpdatePlayerHealthPanel();
     }
 
     public bool CheckDeathOnDamageTaken(int damage)
@@ -26,9 +50,11 @@ public class PlayerHealthManager : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            UpdatePlayerHealthPanel();
             Die();
             return true;
         }
+        UpdatePlayerHealthPanel();
         return false;
     }
 
@@ -36,5 +62,15 @@ public class PlayerHealthManager : MonoBehaviour
     {
         OnPlayerDeath?.Invoke();
         GameManager.Instance.LoseGame();
+    }
+
+    private void OnEnable()
+    {
+        BonusManager.OnHealthUpgraded += UpdateCurrentHealth;
+    }
+
+    private void OnDisable()
+    {
+        BonusManager.OnHealthUpgraded -= UpdateCurrentHealth;
     }
 }

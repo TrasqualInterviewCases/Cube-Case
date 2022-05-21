@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+    [Header("Shop Panel Fields")]
+    [SerializeField] TMP_Text collectableUpgradeText;
+    [SerializeField] TMP_Text healthUpgradeText;
+
     [Header("Start Panel Fields")]
     [SerializeField] GameObject startPanel;
     [SerializeField] TMP_Text levelText;
@@ -22,6 +26,22 @@ public class UIManager : Singleton<UIManager>
     private void Start()
     {
         SetLevelText();
+    }
+
+    public void UpdateUpgradeButtonTexts(int collectionUpgradeCost, int healthUpgradeCost)
+    {
+        UpdateCollectionUpgradeButtonText(collectionUpgradeCost);
+        UpdateHealthUpgradeButtonText(healthUpgradeCost);
+    }
+
+    public void UpdateCollectionUpgradeButtonText(int collectionUpgradeCost)
+    {
+        collectableUpgradeText.SetText(collectionUpgradeCost.ToString());
+    }
+
+    public void UpdateHealthUpgradeButtonText(int healthUpgradeCost)
+    {
+        healthUpgradeText.SetText(healthUpgradeCost.ToString());
     }
 
     private void SetLevelText()

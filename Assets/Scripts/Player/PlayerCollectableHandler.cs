@@ -14,18 +14,20 @@ public class PlayerCollectableHandler : MonoBehaviour
 
     public void Collect(int amount)
     {
-        CollectedGems += amount;
+        CollectedGems += amount + PlayerPrefs.GetInt("collectionUpgradeLevel",0);
         UIManager.Instance.PlayCoinCollectionAnim(CollectedGems);
     }
 
-    public void SpendGems(int amount)
+    public bool SpendGems(int amount)
     {
         if (TotalGems >= amount)
         {
             TotalGems -= amount;
+            UIManager.Instance.SetTotalGemText(TotalGems);
+            SaveGems();
+            return true;
         }
-        UIManager.Instance.SetTotalGemText(TotalGems);
-        SaveGems();
+        return false;
     }
 
     private void ResetGems()
