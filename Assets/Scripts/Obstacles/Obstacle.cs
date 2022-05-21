@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    [Header("Data")]
+    [SerializeField] int barrierDamage = 1;
+
+    [Header("Visuals")]
     [SerializeField] GameObject barrier;
     [SerializeField] GameObject[] pieces;
 
@@ -9,7 +13,7 @@ public class Obstacle : MonoBehaviour
     {
         if (collision.collider.TryGetComponent(out PlayerController player))
         {
-            player.HitObstacle();
+            player.HitObstacle(barrierDamage);
             Break();
         }
     }
@@ -25,5 +29,7 @@ public class Obstacle : MonoBehaviour
             rb.isKinematic = false;
             rb.AddExplosionForce(5f, transform.position, 2f);
         }
+
+        Destroy(gameObject, 1.5f);
     }
 }

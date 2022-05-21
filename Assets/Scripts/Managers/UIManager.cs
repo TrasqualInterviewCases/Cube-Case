@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] GameObject startPanel;
+    [SerializeField] GameObject gamePanel;
+
+    private void OnGameStartCallback()
     {
-        
+        startPanel.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GameManager.OnStart += OnGameStartCallback;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnStart -= OnGameStartCallback;
     }
 }

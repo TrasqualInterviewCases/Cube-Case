@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public static Action OnWin;
+    public static Action OnLose;
+    public static Action OnStart;
+
+    public void StartGame()
     {
-        
+        OnStart?.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoseGame()
     {
-        
+        OnLose?.Invoke();
+    }
+
+    public void WinGame()
+    {
+        OnWin?.Invoke();
     }
 }

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     PlayerAnimationController anim;
 
-    private bool isMovementEnabled = true; //TODO remove true
+    private bool isMovementEnabled;
     private bool isInputPressed;
     private bool isHit;
 
@@ -94,6 +94,8 @@ public class PlayerMovement : MonoBehaviour
         InputBase.OnInputPressed += OnPressed;
         InputBase.OnInputReleased += OnReleased;
         InputBase.OnInputDrag += OnDrag;
+
+        GameManager.OnStart += EnableMovement;
     }
 
     private void OnDisable()
@@ -101,5 +103,7 @@ public class PlayerMovement : MonoBehaviour
         InputBase.OnInputPressed -= OnPressed;
         InputBase.OnInputReleased -= OnReleased;
         InputBase.OnInputDrag -= OnDrag;
+
+        GameManager.OnStart -= EnableMovement;
     }
 }

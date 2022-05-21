@@ -37,4 +37,20 @@ public class PlayerAnimationController : MonoBehaviour
     {
         animMoveHandler.StopHitMotion();
     }
+
+    private void OnPlayerDeathCallback()
+    {
+        StopMoveAnim();
+        anim.enabled = false;
+    }
+
+    private void OnEnable()
+    {
+        PlayerHealthManager.OnPlayerDeath += OnPlayerDeathCallback;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealthManager.OnPlayerDeath -= OnPlayerDeathCallback;
+    }
 }
