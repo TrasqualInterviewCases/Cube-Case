@@ -8,6 +8,8 @@ public class LoopMovingObject : MonoBehaviour
 
     Vector3 startPos;
 
+    bool shouldStop;
+
     private void Start()
     {
         endPos += transform.position;
@@ -20,6 +22,7 @@ public class LoopMovingObject : MonoBehaviour
         startPos = transform.position;
         while (t < 1)
         {
+            if (shouldStop) yield break;
             t += Time.deltaTime / moveTime;
             transform.position = Vector3.Lerp(startPos, endPos, t);
             yield return null;
@@ -27,5 +30,10 @@ public class LoopMovingObject : MonoBehaviour
         transform.position = endPos;
         endPos = startPos;
         StartCoroutine(MoveCo());
+    }
+
+    public void StopMovement()
+    {
+        shouldStop = true;
     }
 }

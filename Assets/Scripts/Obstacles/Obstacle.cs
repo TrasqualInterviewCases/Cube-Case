@@ -38,6 +38,10 @@ public class Obstacle : MonoBehaviour
             rb.isKinematic = false;
             rb.AddExplosionForce(5f, transform.position, 2f);
         }
+        if (TryGetComponent(out LoopMovingObject loopMover))
+        {
+            loopMover.StopMovement();
+        }
 
         Destroy(gameObject, 1.5f);
     }
