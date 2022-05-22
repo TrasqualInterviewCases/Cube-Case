@@ -46,7 +46,7 @@ public class UIManager : Singleton<UIManager>
 
     private void SetLevelText()
     {
-        levelText.SetText($"Level {1}");
+        levelText.SetText($"Level {PlayerPrefs.GetInt("levelText",1)}");
     }
 
     public void PlayCoinCollectionAnim(int amount)

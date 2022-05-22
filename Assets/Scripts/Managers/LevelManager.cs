@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        if(PlayerPrefs.GetInt("allLevelsCompleted") == 1)
+        if (PlayerPrefs.GetInt("allLevelsCompleted") == 1)
         {
             var randLevel = Random.Range(0, levelPrefabs.Length);
             currentLevelIndex = randLevel;
@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevelIndex++;
-        if(currentLevelIndex > levelPrefabs.Length-1)
+        if (currentLevelIndex > levelPrefabs.Length - 1)
         {
             PlayerPrefs.SetInt("allLevelsCompleted", 1);
         }
@@ -37,6 +37,8 @@ public class LevelManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("level", currentLevelIndex);
         }
+        var levelNo = PlayerPrefs.GetInt("levelText", 1);
+        PlayerPrefs.SetInt("levelText", levelNo + 1);
         SceneManager.LoadScene(0);
     }
 

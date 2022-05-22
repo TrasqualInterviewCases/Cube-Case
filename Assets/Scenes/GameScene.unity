@@ -2933,6 +2933,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPrefabs:
   - {fileID: 2122365462933006283, guid: 9de4092c0dc9f4b6bafc47e501edb170, type: 3}
+  - {fileID: 1025244271599636905, guid: 146cac23b0b3d904ab01e9093de8303d, type: 3}
+  - {fileID: 7896333250470961400, guid: 5a09d24baccfe054391cd0bc09eda64b, type: 3}
 --- !u!114 &1034692314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4495,7 +4497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 8
-  horizontalSpeed: 8
+  horizontalSpeed: 12
   positionLimit: 2
   useConstantForward: 1
 --- !u!114 &1845190358
