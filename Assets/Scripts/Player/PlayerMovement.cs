@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<PlayerAnimationController>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (CanMove())
             Move();
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         var ver = useConstantForward? maxVer : direction.y * forwardSpeed * Time.deltaTime;
         var newPos = transform.position + new Vector3(hor, 0f, ver);
         newPos.x = Mathf.Clamp(newPos.x, -positionLimit, positionLimit);
-        rb.MovePosition(newPos);
+        transform.position = newPos;
         anim.PlayMoveAnim(CalculateMoveAnimationValue(ver));
     }
 
@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyHitMotion()
     {
         DisableMovement();
+        rb.isKinematic = false;
         rb.AddForce(transform.forward * -4f, ForceMode.Impulse);
         anim.PlayHitAnim();
     }
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     public void StopHitMotion()
     {
         anim.StopHitAnim();
+        rb.isKinematic = true;
         EnableMovement();
     }
 

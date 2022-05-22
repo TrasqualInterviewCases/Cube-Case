@@ -13,10 +13,10 @@ public class CameraMovement : MonoBehaviour
         offset = target.position - transform.position;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         var targetPos = target.position - offset;
         targetPos.x = Mathf.Clamp(targetPos.x, -xLimit, xLimit);
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 0.1f);
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 5f);
     }
 }
