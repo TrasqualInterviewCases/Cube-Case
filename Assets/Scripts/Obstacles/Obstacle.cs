@@ -9,15 +9,6 @@ public class Obstacle : MonoBehaviour
     [SerializeField] GameObject barrier;
     [SerializeField] GameObject[] pieces;
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.collider.TryGetComponent(out PlayerController player))
-    //    {
-    //        player.HitObstacle(barrierDamage);
-    //        Break();
-    //    }
-    //}
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerController player))
@@ -42,7 +33,7 @@ public class Obstacle : MonoBehaviour
         {
             loopMover.StopMovement();
         }
-
+        ParticleManager.Instance.SpawnHitParticle(transform.position + transform.up * 0.7f);
         Destroy(gameObject, 1.5f);
     }
 }

@@ -16,6 +16,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Game Panel Fields")]
     [SerializeField] GameObject gamePanel;
     [SerializeField] TMP_Text collectableText;
+    [SerializeField] CollectionAnimation collAnim;
 
     [Space(5)]
     [SerializeField] GameObject winPanel;
@@ -51,6 +52,7 @@ public class UIManager : Singleton<UIManager>
 
     public void PlayCoinCollectionAnim(int amount)
     {
+        collAnim.Play();
         SetCollectedGemText(amount);
     }
 

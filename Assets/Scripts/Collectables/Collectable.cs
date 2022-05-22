@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public abstract class Collectable : MonoBehaviour
 {
     [SerializeField] int amount;
 
@@ -15,8 +15,10 @@ public class Collectable : MonoBehaviour
 
     private void PlayCollectionAnim()
     {
-        //particle
+        PlayParticle();
         GetComponentInChildren<Renderer>().enabled = false;
         Destroy(gameObject, 2f);
     }
+
+    protected abstract void PlayParticle();
 }
