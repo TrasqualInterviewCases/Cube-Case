@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyHitMotion()
     {
         DisableMovement();
+        rb.AddForce(transform.forward * -4f, ForceMode.Impulse);
         anim.PlayHitAnim();
     }
 

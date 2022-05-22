@@ -9,9 +9,18 @@ public class Obstacle : MonoBehaviour
     [SerializeField] GameObject barrier;
     [SerializeField] GameObject[] pieces;
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.collider.TryGetComponent(out PlayerController player))
+    //    {
+    //        player.HitObstacle(barrierDamage);
+    //        Break();
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.TryGetComponent(out PlayerController player))
+        if (other.TryGetComponent(out PlayerController player))
         {
             player.HitObstacle(barrierDamage);
             Break();
